@@ -7,27 +7,17 @@ use namespace::autoclean;
 
 
 sub language { 
-	my $self   = shift;
-	my $host   = $self->uri->host;
+	my $self    = shift;
+
+	my $config  = ref($self->_context)->config('TraitFor::Request::PerLanguageDomains');
+
+	my $i18n_accept_language = I18N::AcceptLanguage->new( defaultLanguage => $config->{default_language});
 	
-	if($host   =~ m{^(\w{2})\.})
-	{
-		return $1;
-	}
-	
+	my $host    = (($self->uri->host =~ m{^(\w{2})\.}) ? $1 : undef);
 	my $session = $self->_context->session->{'language'};
-	if($session)
-	{
-		return $session;
-	}
-	
-	my $header = $self->headers->header('Accept-language');
-	if($header)
-	{
-		return $header;
-	}
-	
-	return undef;
+	my $header  = $self->headers->header('Accept-language');
+
+	return $i18n_accept_language->accepts($host || $session || $header, $config->{selectable_language});
 }
 
 =pod
