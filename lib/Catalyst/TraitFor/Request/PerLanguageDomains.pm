@@ -1,9 +1,13 @@
 package Catalyst::TraitFor::Request::PerLanguageDomains;
 use Moose::Role;
-use MooseX::Types::Moose qw/ ArrayRef ClassName Object /;
-use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use I18N::AcceptLanguage;
 use namespace::autoclean;
+
+requires qw/
+    uri
+    _context
+    headers
+/;
 
 
 sub language { 
