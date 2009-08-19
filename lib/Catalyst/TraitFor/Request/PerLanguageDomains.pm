@@ -7,17 +7,17 @@ use namespace::autoclean;
 
 
 sub language { 
-	my $self    = shift;
+    my $self    = shift;
 
-	my $config  = ref($self->_context)->config('TraitFor::Request::PerLanguageDomains');
+    my $config  = ref($self->_context)->config->{'TraitFor::Request::PerLanguageDomains'};
 
-	my $i18n_accept_language = I18N::AcceptLanguage->new( defaultLanguage => $config->{default_language});
-	
-	my $host    = (($self->uri->host =~ m{^(\w{2})\.}) ? $1 : undef);
-	my $session = $self->_context->session->{'language'};
-	my $header  = $self->headers->header('Accept-language');
+    my $i18n_accept_language = I18N::AcceptLanguage->new( defaultLanguage => $config->{default_language});
+    
+    my $host    = (($self->uri->host =~ m{^(\w{2})\.}) ? $1 : undef);
+    my $session = $self->_context->session->{'language'};
+    my $header  = $self->headers->header('Accept-language');
 
-	return $i18n_accept_language->accepts($host || $session || $header, $config->{selectable_language});
+    return $i18n_accept_language->accepts($host || $session || $header, $config->{selectable_language});
 }
 
 =pod
@@ -45,8 +45,20 @@ version 0.01
     __PACKAGE__->apply_request_class_roles(qw/
         Catalyst::TraitFor::Request::PerLanguageDomains
     /);
-
+    
+    __PACKAGE__->config( 
+        'TraitFor::Request::PerLanguageDomains' => {
+            default_language => 'de',
+            selectable_language => ['de','en'],
+        }
     __PACKAGE__->setup;
+
+#config general style:
+<TraitFor::Request::PerLanguageDomains>
+    default_language de
+    selectable_language de
+    selectable_language en
+</Catalyst::Request>
 
 =head1 DESCRIPTION
 
