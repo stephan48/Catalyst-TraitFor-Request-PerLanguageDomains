@@ -3,6 +3,12 @@ use Moose::Role;
 use I18N::AcceptLanguage;
 use namespace::autoclean;
 
+requires qw/
+    uri
+    _context
+    headers
+/;
+
 sub language {
 	my $self = shift;
 	my $host = $self->uri->host;
