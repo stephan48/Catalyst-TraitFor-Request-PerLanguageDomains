@@ -32,8 +32,6 @@ author_requires 'Test::NoTabs';
 author_requires 'Test::Pod' => '1.14';
 author_requires 'Test::Pod::Coverage' => '1.08';
 
-
-
 resources repository => 'http://github.com/stephan48/Catalyst-TraitFor-Request-PerLanguageDomains/';
 
 tests 't/*.t';

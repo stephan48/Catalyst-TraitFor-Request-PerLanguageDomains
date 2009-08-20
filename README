@@ -25,7 +25,9 @@ SYNOPSIS
                 default_language => 'de',
                 selectable_language => ['de','en'],
             }
-        __PACKAGE__->setup;
+            };
+            
+    __PACKAGE__->setup;
 
     #config general style: <TraitFor::Request::PerLanguageDomains>
     default_language de selectable_language de selectable_language en
