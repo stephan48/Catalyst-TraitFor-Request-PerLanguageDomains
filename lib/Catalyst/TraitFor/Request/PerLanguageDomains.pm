@@ -1,4 +1,6 @@
 package Catalyst::TraitFor::Request::PerLanguageDomains;
+
+use 5.008005;
 use Moose::Role;
 use I18N::AcceptLanguage;
 use namespace::autoclean;
@@ -55,6 +57,8 @@ version 0.01
             default_language => 'de',
             selectable_language => ['de','en'],
         }
+	};
+	
     __PACKAGE__->setup;
 
 #config general style:
