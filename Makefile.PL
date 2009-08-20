@@ -9,6 +9,8 @@ BEGIN {
     }
 }
 
+license 'perl';
+
 name 'Catalyst-TraitFor-Request-PerLanguageDomains';
 all_from 'lib/Catalyst/TraitFor/Request/PerLanguageDomains.pm';
 
@@ -22,6 +24,7 @@ test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::Session';
 test_requires 'Catalyst::Plugin::Session::State::Cookie';
 test_requires 'Catalyst::Plugin::Session::Store::File';
+test_requires 'CatalystX::RoleApplicator';
 test_requires 'HTTP::Request::Common';
 
 author_requires 'Test::EOL' => '0.3';
@@ -29,7 +32,7 @@ author_requires 'Test::NoTabs';
 author_requires 'Test::Pod' => '1.14';
 author_requires 'Test::Pod::Coverage' => '1.08';
 
-license 'perl';
+
 
 resources repository => 'http://github.com/stephan48/Catalyst-TraitFor-Request-PerLanguageDomains/';
 
