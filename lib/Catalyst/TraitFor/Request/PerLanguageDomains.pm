@@ -80,7 +80,7 @@ Returns a string that is either the lang part of the domain(f.e. de from de.exam
 
   Stephan Jauernick <stephan@stejau.de>
 
-=head1 COPYRIGHT AND LICENSE
+=head1 LICENSE
 
 This software is copyright (c) 2009 by Stephan Jauernick.
 
