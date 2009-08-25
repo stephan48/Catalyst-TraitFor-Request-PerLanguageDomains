@@ -1,14 +1,18 @@
 package TestApp;
 use Moose;
-use CatalystX::RoleApplicator;
 use namespace::autoclean;
+
+use Catalyst 5.80;
+use CatalystX::RoleApplicator;
+
+extends 'Catalyst';
 
 use Catalyst qw/
     Session
     Session::Store::File
     Session::State::Cookie
 /;
-extends 'Catalyst';
+
 
 __PACKAGE__->config(
     'TraitFor::Request::PerLanguageDomains' => {
