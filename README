@@ -2,9 +2,6 @@ NAME
     Catalyst::TraitFor::Request::PerLanguageDomains - Language detection for
     Catalyst::Requests
 
-VERSION
-    version 0.01
-
 SYNOPSIS
         package MyApp;
 
