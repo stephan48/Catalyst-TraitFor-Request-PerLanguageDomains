@@ -40,4 +40,6 @@ author_tests 't/author';
 if ($Module::Install::AUTHOR) {
     system("pod2text lib/Catalyst/TraitFor/Request/PerLanguageDomains.pm > README") and die $!;
 }
+auto_install;
 WriteAll;
+
