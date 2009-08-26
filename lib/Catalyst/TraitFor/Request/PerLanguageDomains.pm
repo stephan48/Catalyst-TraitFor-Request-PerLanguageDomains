@@ -5,20 +5,22 @@ use Moose::Role;
 use I18N::AcceptLanguage;
 use namespace::autoclean;
 
+our $VERSION = '0.01';
+$VERSION = eval $VERSION;
+
 requires qw/
     uri
     _context
     headers
 /;
 
-
-sub language { 
+sub language {
     my $self    = shift;
 
     my $config  = ref($self->_context)->config->{'TraitFor::Request::PerLanguageDomains'};
 
     my $i18n_accept_language = I18N::AcceptLanguage->new( defaultLanguage => $config->{default_language});
-    
+
     my $host    = (($self->uri->host =~ m{^(\w{2})\.}) ? $1 : undef);
     my $session = $self->_context->can('session')->($self->_context)->{'language'};
     my $header  = $self->headers->header('Accept-language');
@@ -31,10 +33,6 @@ sub language {
 =head1 NAME
 
 Catalyst::TraitFor::Request::PerLanguageDomains - Language detection for Catalyst::Requests
-
-=head1 VERSION
-
-version 0.01
 
 =head1 SYNOPSIS
 
