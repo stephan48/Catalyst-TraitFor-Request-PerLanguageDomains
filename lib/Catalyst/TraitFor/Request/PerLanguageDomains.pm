@@ -20,7 +20,7 @@ sub language {
     my $i18n_accept_language = I18N::AcceptLanguage->new( defaultLanguage => $config->{default_language});
     
     my $host    = (($self->uri->host =~ m{^(\w{2})\.}) ? $1 : undef);
-    my $session = $self->_context->session->{'language'};
+    my $session = $self->_context->can('session')->($self->_context)->{'language'};
     my $header  = $self->headers->header('Accept-language');
 
     return $i18n_accept_language->accepts($host || $session || $header, $config->{selectable_language});
@@ -78,7 +78,19 @@ Extend request objects with a method for language detection
 
     my $language = $ctx->request->language;
 
-Returns a string that is either the lang part of the domain(f.e. de from de.example.org) or the language set in the Session or the Accept-Language header.
+Returns a string that is the two digit code for the request language.
+
+The following things are checked to find the request language, in order:
+
+=over
+
+=item The lang part of the domain (e.g. de from de.example.org)
+
+=item The C<language> key set in the session (if L<Catalyst::Plugin::Session> is loaded)
+
+=item The C<Accept-Language> header of the request.
+
+=back
 
 =head1 AUTHOR
 
