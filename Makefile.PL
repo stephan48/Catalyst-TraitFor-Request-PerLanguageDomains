@@ -16,6 +16,10 @@ all_from 'lib/Catalyst/TraitFor/Request/PerLanguageDomains.pm';
 
 requires 'Catalyst' => '5.80';
 requires 'Moose';
+requires 'Moose::Autobox';
+requires 'MooseX::Types';
+requires 'MooseX::Types::Common::String';
+requires 'MooseX::Types::Structured';
 requires 'I18N::AcceptLanguage';
 requires 'namespace::autoclean';
 
@@ -24,6 +28,7 @@ test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::Session';
 test_requires 'Catalyst::Plugin::Session::State::Cookie';
 test_requires 'Catalyst::Plugin::Session::Store::File';
+test_requires 'Catalyst::View::TT';
 test_requires 'CatalystX::RoleApplicator';
 test_requires 'HTTP::Request::Common';
 

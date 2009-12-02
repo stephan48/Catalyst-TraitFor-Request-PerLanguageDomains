@@ -16,35 +16,45 @@ SYNOPSIS
         __PACKAGE__->apply_request_class_roles(qw/
             Catalyst::TraitFor::Request::PerLanguageDomains
         /);
-        
-    __PACKAGE__->config( 
+
+        __PACKAGE__->config(
             'TraitFor::Request::PerLanguageDomains' => {
                 default_language => 'de',
                 selectable_language => ['de','en'],
             }
-            };
-            
-    __PACKAGE__->setup;
+        );
 
-    #config general style: <TraitFor::Request::PerLanguageDomains>
-    default_language de selectable_language de selectable_language en
-    </Catalyst::Request>
+        __PACKAGE__->setup;
+
+        # Config::General style:
+        <TraitFor::Request::PerLanguageDomains>
+            default_language de
+            selectable_language de
+            selectable_language en
+        </Catalyst::Request>
 
 DESCRIPTION
-    Extend request objects with a method for language detection
+    Extends Catalyst::Request objects with a "$ctx->request->language"
+    method for language detection.
 
 METHODS
   language
         my $language = $ctx->request->language;
 
-    Returns a string that is the two digit code for the request language.
+    Returns a string that is the two digit code ISO for the request
+    language.
 
     The following things are checked to find the request language, in order:
 
-    The lang part of the domain (e.g. de from de.example.org)
-    The "language" key set in the session (if Catalyst::Plugin::Session is
-    loaded)
-    The "Accept-Language" header of the request.
+    *   The lang part of the domain (e.g. de from de.example.org)
+
+    *   The "language" key set in the session (if Catalyst::Plugin::Session
+        is loaded)
+
+    *   The "Accept-Language" header of the request.
+
+SEE ALSO
+    CatalystX::RoleApplicator, I18N::AcceptLanguage.
 
 AUTHOR
       Stephan Jauernick <stephan@stejau.de>

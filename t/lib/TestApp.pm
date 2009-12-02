@@ -21,9 +21,11 @@ __PACKAGE__->config(
     }
 );
 
-__PACKAGE__->apply_request_class_roles(qw/Catalyst::TraitFor::Request::PerLanguageDomains/);
+__PACKAGE__->apply_request_class_roles(qw/
+    Catalyst::TraitFor::Request::PerLanguageDomains
+/);
 
 __PACKAGE__->setup;
 
-__PACKAGE__->meta->make_immutable( replace_constructor => 1 );
+1;
 
