@@ -5,7 +5,7 @@ use Moose::Role;
 use I18N::AcceptLanguage;
 use namespace::autoclean;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 $VERSION = eval $VERSION;
 
 requires qw/
