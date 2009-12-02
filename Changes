@@ -1,0 +1,8 @@
+0.02
+  - Fixed dependency issues causing tests to fail.
+  - Fixed documentation issues
+  - Use structured type constraints to validate configuration is correct.
+
+0.01 26 Aug 2009
+  - Initial version
+
