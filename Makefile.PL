@@ -1,13 +1,8 @@
 use strict;
 use warnings;
 use inc::Module::Install;
-
-BEGIN {
-    if ($Module::Install::AUTHOR) {
-        require Module::Install::AuthorTests;
-        require Module::Install::AuthorRequires;
-    }
-}
+use Module::Install::AuthorTests;
+use Module::Install::AuthorRequires;
 
 license 'perl';
 
@@ -45,6 +40,6 @@ author_tests 't/author';
 if ($Module::Install::AUTHOR) {
     system("pod2text lib/Catalyst/TraitFor/Request/PerLanguageDomains.pm > README") and die $!;
 }
-auto_install;
+
 WriteAll;
 
