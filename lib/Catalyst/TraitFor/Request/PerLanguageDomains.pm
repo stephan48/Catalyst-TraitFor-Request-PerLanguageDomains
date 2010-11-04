@@ -22,7 +22,8 @@ requires qw/
 has language => (
     init_arg => undef,
     is => 'ro',
-    lazy_build => 1,
+    lazy => 1,
+    builder => '_build_language',
 );
 
 subtype ValidConfig,
@@ -35,7 +36,7 @@ has _perlang_config => (
     init_arg => undef, traits => ['Hash'],
     is => 'ro',
     isa => ValidConfig,
-    lazy_build => 1, builder => '_build_perlang_config',
+    lazy => 1, builder => '_build_perlang_config',
     handles => {
         map { q[_] . $_ => [ get => $_ ] } 
             qw/default_language selectable_language/
