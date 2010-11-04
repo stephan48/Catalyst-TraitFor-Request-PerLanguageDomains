@@ -10,7 +10,7 @@ use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use MooseX::Types::Structured qw/ Dict /;
 use namespace::autoclean;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 $VERSION = eval $VERSION;
 
 requires qw/
@@ -22,8 +22,7 @@ requires qw/
 has language => (
     init_arg => undef,
     is => 'ro',
-    lazy => 1,
-    builder => '_build_language',
+    lazy_build => 1,
 );
 
 subtype ValidConfig,
@@ -33,30 +32,39 @@ subtype ValidConfig,
     ];
 
 has _perlang_config => (
-    init_arg => undef,
+    init_arg => undef, traits => ['Hash'],
     is => 'ro',
     isa => ValidConfig,
-    lazy => 1,
-    default => sub {
-        ref(shift->_context)->config->{'TraitFor::Request::PerLanguageDomains'};
-    }
+    lazy_build => 1, builder => '_build_perlang_config',
+    handles => {
+        map { q[_] . $_ => [ get => $_ ] } 
+            qw/default_language selectable_language/
+    },
 );
+
+sub _build_perlang_config {
+    ref(shift->_context)->config->{'TraitFor::Request::PerLanguageDomains'};
+}
 
 sub _build_language {
     my $self    = shift;
-    my $config  = $self->_perlang_config;
 
     my $i18n_accept_language = I18N::AcceptLanguage->new(
-        defaultLanguage => $config->{default_language}
+        defaultLanguage => $self->_default_language
     );
 
-    my $host    = (($self->uri->host =~ m{^(\w{2})\.}) ? $1 : undef);
-    my $session = $self->_context->can('session')->($self->_context)->{'language'};
-    my $header  = $self->headers->header('Accept-language');
+    my $from_host = sub { (($self->uri->host =~ m{^(\w{2})\.}) ? $1 : undef) };
+    my $from_session = sub {
+        my $ctx = $self->_context;
+        if ( my $session_meth = $ctx->can('session') ) {
+            $session_meth->($ctx)->{'language'};
+        }
+    };
+    my $from_header = sub { $self->headers->header('Accept-language') };
 
     return $i18n_accept_language->accepts(
-        $host || $session || $header,
-        [ $config->{selectable_language}->flatten ]
+        $from_host->() || $from_session->() || $from_header->(),
+        [ $self->_selectable_language->flatten ]
     );
 }
 
