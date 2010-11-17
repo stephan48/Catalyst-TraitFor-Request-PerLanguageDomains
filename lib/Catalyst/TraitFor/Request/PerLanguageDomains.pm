@@ -10,7 +10,7 @@ use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use MooseX::Types::Structured qw/ Dict /;
 use namespace::autoclean;
 
-our $VERSION = '0.04';
+our $VERSION = '0.03';
 $VERSION = eval $VERSION;
 
 requires qw/
