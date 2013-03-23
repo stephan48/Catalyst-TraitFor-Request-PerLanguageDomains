@@ -1,3 +1,6 @@
+0.03
+  - Fix to work in applications without the sesion plugin.
+
 0.02
   - Fixed dependency issues causing tests to fail.
   - Fixed documentation issues
